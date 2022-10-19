@@ -1,28 +1,12 @@
-#include <iostream>
-#include <stdio.h>
-#include <vector>
-#include <algorithm>
-#include <limits>
-#include <fstream>
-#include <sstream>
-#include <numeric>
-#include <iomanip>
+#include <bits/stdc++.h>
 using namespace std;
 
-void escribirDatos(std::vector<string> aux){
-    std::cout << std::endl << std::endl;
-    for (auto const& value : aux){
-        std::cout << value << " ";
-    }
-    std::cout << std::endl;
-}
-
-int main(){
-    string trans1 = "";
-    string trans2 = "";
-    string mcode1 = "";
-    string mcode2 = "";
-    string mcode3 = "";
+void leeArchivos(string &trans1, string &trans2, string &mcode1, string &mcode2, string &mcode3){
+    trans1 = "";
+    trans2 = "";
+    mcode1 = "";
+    mcode2 = "";
+    mcode3 = "";
     ifstream fin1("transmission1.txt", ifstream::in);
     string line;
     while (fin1 >> line) {
@@ -50,4 +34,15 @@ int main(){
     }
     fin5.close();
     cout << trans1 << endl << endl << trans2 << endl << endl << mcode1 << endl << endl << mcode2 << endl << endl << mcode3;
+}
+
+
+
+int main(){
+    string trans1;
+    string trans2;
+    string mcode1;
+    string mcode2;
+    string mcode3;
+    leeArchivos(trans1,trans2,mcode1,mcode2,mcode3);
 }
