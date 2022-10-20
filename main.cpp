@@ -57,13 +57,9 @@ void part1(string trans, string mcode){
     string complete = mcode + "$" + trans;
     std::vector<int> Z = zFunction(complete);
     int x = 0;
-    // for (auto const& value : Z){
-    //     std::cout << value << " ";
-    // }
-    // std::cout << std::endl << mcode.length() << std::endl;
     for(int i = 0; i < Z.size(); i++){
         if(mcode.length() - 1 == Z[i]){
-            std::cout << "true " << i << endl;
+            std::cout << "true " << i - mcode.length() << endl;
             x = 1;
             break;
         }
@@ -73,7 +69,64 @@ void part1(string trans, string mcode){
     }
 }
 
-pair<int,int> parte3(string trans1, string trans2){
+void part2(string palin){
+    string fin = "|";
+    for(int i = 0; i < palin.length(); i++){
+        fin = fin + palin[i] + "|";
+    }
+    int initPos = 0;
+    int longestLeng = 0;
+    string palindrome;
+    string longestPalindrome;
+    for(int i = 0; i < fin.length(); i++){
+        int j = 1;
+        palindrome = fin[i];
+        do{
+            if(i - j >= 0 && i + j <= fin.length() - 1){
+                if(fin[i-j] == fin[i+j]){
+                    palindrome = fin[i-j] + palindrome + fin[i+j];
+                    // std::cout << endl << palindrome << endl;
+                    j++;
+                    continue;
+                }else{
+                    if(j > longestLeng){
+                        longestLeng = j;
+                        longestPalindrome = palindrome;
+                        initPos = i - j + 1;
+                        j = 1;
+                        break;
+                    }else{
+                        j = 1;
+                        break;
+                    }
+                }
+            }else{
+                if(j > longestLeng){
+                    longestLeng = j;
+                    longestPalindrome = palindrome;
+                    initPos = i - j + 1;
+                    j = 1;
+                    break;
+                }else{
+                    j = 1;
+                    break;
+                }
+            }
+        }while(true);
+    }
+    longestPalindrome.erase(std::remove(longestPalindrome.begin(), longestPalindrome.end(), '|'), longestPalindrome.end());
+    string complete = longestPalindrome + "$" + palin;
+    std::vector<int> Z = zFunction(complete);
+    for(int i = 0; i < Z.size(); i++){
+        if(longestPalindrome.length() == Z[i]){
+            int j = i - longestPalindrome.length();
+            std::cout << j << " " << j + longestPalindrome.length() - 1 << endl;
+            break;
+        }
+    }
+}
+
+pair<int,int> part3(string trans1, string trans2){
     pair <int,int> resultado;
     int t1=trans1.length();
     int t2=trans2.length();
@@ -132,13 +185,18 @@ int main(){
     string mcode3;
     pair<int,int> respuesta3;
     leeArchivos(trans1,trans2,mcode1,mcode2,mcode3);
+    std::cout << "  parte 1" << endl;
     part1(trans1, mcode1);
     part1(trans1, mcode2);
     part1(trans1, mcode3);
     part1(trans2, mcode1);
     part1(trans2, mcode2);
     part1(trans2, mcode3);
-    // respuesta3=parte3(trans1,trans2);
-    // cout<<respuesta3.first<<" "<<respuesta3.second<<endl;
+    std::cout << "  parte 2" << endl;
+    part2(trans1);
+    part2(trans2);
+    std::cout << "  parte 3" << endl;
+    respuesta3=part3(trans1,trans2);
+    cout<<respuesta3.first<<" "<<respuesta3.second<<endl;
     // cout << trans1 << endl << endl << trans2 << endl << endl << mcode1 << endl << endl << mcode2 << endl << endl << mcode3;
 }
