@@ -35,6 +35,44 @@ void leeArchivos(string &trans1, string &trans2, string &mcode1, string &mcode2,
     fin5.close();
 }
 
+vector<int> zFunction(string E){
+    vector<int> res(E.size(), 0);
+    int i = 1;
+    while(i<E.size()){
+        int j = 0;
+        for(int x = i; x<E.size(); x++){
+            if(E[x] == E[j]){
+                res[i] = res[i] + 1;
+                j++;
+            }else{
+                break;
+            }
+        }
+        i++;
+    }
+    return res;
+}
+
+void part1(string trans, string mcode){
+    string complete = mcode + "$" + trans;
+    std::vector<int> Z = zFunction(complete);
+    int x = 0;
+    // for (auto const& value : Z){
+    //     std::cout << value << " ";
+    // }
+    // std::cout << std::endl << mcode.length() << std::endl;
+    for(int i = 0; i < Z.size(); i++){
+        if(mcode.length() - 1 == Z[i]){
+            std::cout << "true " << i << endl;
+            x = 1;
+            break;
+        }
+    }
+    if(x == 0){
+        std::cout << "false" << endl;
+    }
+}
+
 pair<int,int> parte3(string trans1, string trans2){
     pair <int,int> resultado;
     int t1=trans1.length();
@@ -86,8 +124,6 @@ pair<int,int> parte3(string trans1, string trans2){
     return resultado;
 }
 
-
-
 int main(){
     string trans1;
     string trans2;
@@ -96,7 +132,13 @@ int main(){
     string mcode3;
     pair<int,int> respuesta3;
     leeArchivos(trans1,trans2,mcode1,mcode2,mcode3);
-    respuesta3=parte3(trans1,trans2);
-    cout<<respuesta3.first<<" "<<respuesta3.second<<endl;
-    //cout << trans1 << endl << endl << trans2 << endl << endl << mcode1 << endl << endl << mcode2 << endl << endl << mcode3;
+    part1(trans1, mcode1);
+    part1(trans1, mcode2);
+    part1(trans1, mcode3);
+    part1(trans2, mcode1);
+    part1(trans2, mcode2);
+    part1(trans2, mcode3);
+    // respuesta3=parte3(trans1,trans2);
+    // cout<<respuesta3.first<<" "<<respuesta3.second<<endl;
+    // cout << trans1 << endl << endl << trans2 << endl << endl << mcode1 << endl << endl << mcode2 << endl << endl << mcode3;
 }
