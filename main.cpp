@@ -1,17 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void imprimemat(vector< vector <int>  > matriz, int x, int y){
-    for (int i = 0; i < y; i++)
-    {
-        for (int e = 0; e < x; e++)
-        {
-            cout<<matriz[i][e]<<" ";
-        }
-        cout<<endl;
-    }
-}
-
 void leeArchivos(string &trans1, string &trans2, string &mcode1, string &mcode2, string &mcode3){
     trans1 = "";
     trans2 = "";
@@ -46,7 +35,8 @@ void leeArchivos(string &trans1, string &trans2, string &mcode1, string &mcode2,
     fin5.close();
 }
 
-void parte3(string trans1, string trans2){
+pair<int,int> parte3(string trans1, string trans2){
+    pair <int,int> resultado;
     int t1=trans1.length();
     int t2=trans2.length();
     vector <vector <int > > matriz(t1,vector <int>(t2, 0));
@@ -91,7 +81,9 @@ void parte3(string trans1, string trans2){
             }
         }
     }
-    cout<<inicio+1<<" "<<fin<<endl;
+    resultado.first=inicio+1;
+    resultado.second=fin;
+    return resultado;
 }
 
 
@@ -102,7 +94,9 @@ int main(){
     string mcode1;
     string mcode2;
     string mcode3;
+    pair<int,int> respuesta3;
     leeArchivos(trans1,trans2,mcode1,mcode2,mcode3);
-    parte3(trans1,trans2);
+    respuesta3=parte3(trans1,trans2);
+    cout<<respuesta3.first<<" "<<respuesta3.second<<endl;
     //cout << trans1 << endl << endl << trans2 << endl << endl << mcode1 << endl << endl << mcode2 << endl << endl << mcode3;
 }
